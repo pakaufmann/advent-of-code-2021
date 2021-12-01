@@ -18,11 +18,11 @@ func main() {
 	}
 }
 
-func part1(content []int64) int {
+func part1(depths []int64) int {
 	increased := 0
 	var previous int64 = math.MaxInt64
 
-	for _, depth := range content {
+	for _, depth := range depths {
 		if depth > previous {
 			increased++
 		}
