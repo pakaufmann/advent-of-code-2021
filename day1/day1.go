@@ -1,15 +1,13 @@
-package main
+package day1
 
 import (
-	"bufio"
+	"advent-of-code-2021/input"
 	"fmt"
 	"math"
-	"os"
-	"strconv"
 )
 
-func main() {
-	depths, err := ReadLines("inputs/day1.txt")
+func Day1() {
+	depths, err := input.ReadLinesInt("inputs/day1.txt")
 	if err != nil {
 		fmt.Println("Could not find file")
 	} else {
@@ -45,23 +43,4 @@ func part2(depths []int64) int {
 	}
 
 	return increased
-}
-
-func ReadLines(path string) ([]int64, error) {
-	file, err := os.Open(path)
-	if err != nil {
-		return nil, err
-	}
-	defer file.Close()
-
-	var lines []int64
-	scanner := bufio.NewScanner(file)
-	for scanner.Scan() {
-		number, err := strconv.ParseInt(scanner.Text(), 10, 64)
-		if err != nil {
-			return nil, err
-		}
-		lines = append(lines, number)
-	}
-	return lines, scanner.Err()
 }
