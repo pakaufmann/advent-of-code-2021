@@ -6,5 +6,6 @@ import (
 
 func main() {
 	//day1.Day1()
-	day2.Day2()
+	//day2.Day2()
+	day2.Day2Dedup()
 }
