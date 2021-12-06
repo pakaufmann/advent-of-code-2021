@@ -1,12 +1,12 @@
 package main
 
 import (
-	"advent-of-code-2021/day5"
+	"advent-of-code-2021/day6"
 )
 
 func main() {
 	//day1.Day1()
 	//day2.Day2()
 	//day2.Day2Dedup()
-	day5.Day5()
+	day6.Day6()
 }
