@@ -13,9 +13,8 @@ type Pair struct {
 }
 
 type Polymer struct {
-	evenPairs map[string]int64
-	oddPairs  map[string]int64
-	last      rune
+	pairs map[string]int64
+	last  rune
 }
 
 func Day14() {
@@ -52,9 +51,8 @@ func (polymer *Polymer) readCount() int64 {
 	elements := make(map[rune]int64, 0)
 	elements[polymer.last] += 1
 
-	for pair, count := range polymer.evenPairs {
+	for pair, count := range polymer.pairs {
 		elements[rune(pair[0])] += count
-		elements[rune(pair[1])] += count
 	}
 
 	var leastCommon int64 = math.MaxInt64
@@ -73,33 +71,26 @@ func (polymer *Polymer) readCount() int64 {
 }
 
 func (polymer Polymer) expand(rules map[string]Pair) Polymer {
-	newPolymer := Polymer{make(map[string]int64), make(map[string]int64), polymer.last}
-	newPolymer.addNewPairs(polymer.evenPairs, rules)
-	newPolymer.addNewPairs(polymer.oddPairs, rules)
+	newPolymer := Polymer{make(map[string]int64), polymer.last}
+	newPolymer.addNewPairs(polymer.pairs, rules)
 	return newPolymer
 }
 
 func (polymer *Polymer) addNewPairs(pairs map[string]int64, rules map[string]Pair) {
 	for pair, count := range pairs {
 		insert := rules[pair]
-
-		polymer.evenPairs[insert.first] += count
-		polymer.oddPairs[insert.second] += count
+		polymer.pairs[insert.first] += count
+		polymer.pairs[insert.second] += count
 	}
 }
 
 func readInput(lines []string) (Polymer, map[string]Pair) {
-	evenPairs := make(map[string]int64, 0)
-	oddPairs := make(map[string]int64, 0)
+	pairs := make(map[string]int64, 0)
 
 	startPolymer := lines[0]
 	last := ' '
 	for i := 0; i < len(startPolymer)-1; i++ {
-		if i&2 == 0 {
-			evenPairs[startPolymer[i:i+2]] += 1
-		} else {
-			oddPairs[startPolymer[i:i+2]] += 1
-		}
+		pairs[startPolymer[i:i+2]] += 1
 		last = rune(startPolymer[i+1])
 	}
 
@@ -114,5 +105,5 @@ func readInput(lines []string) (Polymer, map[string]Pair) {
 		}
 	}
 
-	return Polymer{evenPairs, oddPairs, last}, rules
+	return Polymer{pairs, last}, rules
 }
