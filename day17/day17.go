@@ -76,11 +76,12 @@ func part2(velocities []Velocity) int {
 }
 
 func getVelocities(area Area) []Velocity {
-	maxX := absInt(area.xRange.to) + absInt(area.yRange.to) + 1
 	velocities := make([]Velocity, 0)
 
-	for x := 1; x < maxX; x++ {
-		for y := -1000; y < 1000; y++ {
+	maxX := absInt(area.xRange.to)
+	maxY := absInt(area.yRange.to)
+	for x := 1; x <= maxX; x++ {
+		for y := area.yRange.to; y <= maxY; y++ {
 			if area.isHitBy(x, y) {
 				velocities = append(velocities, Velocity{x, y})
 			}
